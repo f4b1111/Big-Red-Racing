@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOS Game</title>
+  <script src="js-dos.js"></script>
+  <style>
+    .dosbox-container {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    canvas {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="dosbox-container">
+    <canvas id="canvas" width="640" height="400" style="image-rendering: pixelated;"></canvas>
+  </div>
+  <script>
+    function runDOSBox() {
+      Dos(document.getElementById("canvas"), {
+        wdosboxUrl: "wdosbox.js",
+        autolock: true,
+        cycles: 'max',
+      }).ready(function (fs, main) {
+        fs.extract("DOSBOX_BIGRED.ZIP").then(function () {
+          main(["-c", "RACING.EXE"]);
+        });
+      });
+    }
+    runDOSBox();
+  </script>
+</body>
+</html>
